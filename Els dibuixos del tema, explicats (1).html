@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Els dibuixos del tema, explicats</title>
+<style>
+:root{
+  --bg:#F2F6F7;--ink:#13262E;--mute:#52656D;--card:#FFFFFF;--line:#C9D6DA;--mem:#7B3F63;--leaf:#D5EBD3;--chl:#9FD0A4;
+  --atp:#E39A0B;--nadh:#2379B5;--fadh:#6B47B3;--co2:#68767E;--btn:#13262E;--btnt:#F2F6F7;--e:#F2C230;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F1A1F;--ink:#E7EFF1;--mute:#9DB0B7;--card:#172830;--line:#2B4048;--mem:#D58AB4;--leaf:#1F3A2A;--chl:#2E5E3A;
+  --atp:#F2B431;--nadh:#5BB0E8;--fadh:#A58BE8;--co2:#9AA8AF;--btn:#E7EFF1;--btnt:#0F1A1F}}
+:root[data-theme="dark"]{
+  --bg:#0F1A1F;--ink:#E7EFF1;--mute:#9DB0B7;--card:#172830;--line:#2B4048;--mem:#D58AB4;--leaf:#1F3A2A;--chl:#2E5E3A;
+  --atp:#F2B431;--nadh:#5BB0E8;--fadh:#A58BE8;--co2:#9AA8AF;--btn:#E7EFF1;--btnt:#0F1A1F}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Avenir Next","Segoe UI",system-ui,sans-serif}
+.wrap{max-width:780px;margin:0 auto;padding:18px 16px 32px}
+h1{font-size:1.45rem;margin:0 0 2px;letter-spacing:-.01em}.sub{margin:0 0 14px;color:var(--mute)}
+#mods{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px}
+#mods button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 14px;font:inherit;font-size:.9rem;cursor:pointer}
+#mods button[aria-selected="true"]{background:var(--btn);color:var(--btnt);border-color:var(--btn)}
+#dots{display:flex;gap:6px;margin:4px 0 12px}
+#dots button{width:30px;height:8px;border-radius:5px;border:0;background:var(--line);cursor:pointer;padding:0}
+#dots button.on{background:var(--atp)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h2{margin:0 0 8px;font-size:1.25rem}.card ul{margin:0 0 12px;padding-left:20px}.card li{margin-bottom:6px}
+.vars{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.dg{background:var(--bg);border-radius:12px;padding:10px 8px;margin:0 0 12px;overflow-x:auto}
+svg{display:block;width:100%;height:auto;min-width:480px}
+.info{margin:8px 4px 0;font-size:.95rem}.info b{color:var(--ink)}
+.node{border:2px solid var(--line);border-radius:10px;padding:7px 12px;background:var(--card);text-align:center;min-width:128px;animation:in .5s both}
+.node b{display:block}.node small{color:var(--mute);display:block;line-height:1.25}
+.k-a{border-color:var(--atp)}.k-n{border-color:var(--nadh)}.k-f{border-color:var(--fadh)}.k-g{border-color:var(--co2)}.k-m{border-color:var(--mem)}
+.r{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.ar{display:flex;align-items:center;gap:8px;justify-content:center;min-height:36px;color:var(--mute);font-size:.86rem;animation:in .5s both}
+.ar i{position:relative;width:2px;height:28px;background:var(--line);flex:none}
+.ar i::after{content:"";position:absolute;left:-3px;top:0;width:8px;height:8px;border-radius:50%;background:var(--atp);animation:dn 1.4s linear infinite}
+@keyframes dn{to{top:20px}}@keyframes in{from{opacity:0;transform:translateY(6px)}}
+@media (prefers-reduced-motion:reduce){.node,.ar{animation:none}.ar i::after{animation:none;top:10px}.mv{transition:none!important}}
+.tip{background:var(--bg);border-radius:10px;padding:9px 12px;margin:0 0 12px;font-size:.93rem}
+.q{border-top:1px dashed var(--line);padding-top:10px}.q p{margin:0 0 8px}
+.ans{display:none;margin-top:8px;font-weight:600}.ans.on{display:block}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.btn{border:1.5px solid var(--btn);background:transparent;color:var(--btn);border-radius:10px;padding:9px 15px;font:inherit;cursor:pointer}
+.btn.main{background:var(--btn);color:var(--btnt)}.btn:disabled{opacity:.35;cursor:default}
+button:focus-visible{outline:3px solid var(--atp);outline-offset:2px}
+.cnt{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0 0}
+.cnt div{border:1.5px solid var(--line);border-radius:10px;text-align:center;padding:5px 2px;font-size:.76rem;color:var(--mute)}
+.cnt b{display:block;font-size:1.3rem;color:var(--ink);line-height:1.1}
+.t{font:13px "Avenir Next","Segoe UI",system-ui,sans-serif;fill:var(--ink)}.ts{font-size:11.5px;fill:var(--mute)}
+.mv{transition:transform .6s ease}
+.hl{stroke:var(--atp);stroke-width:5}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Els dibuixos del tema, explicats</h1>
+  <p class="sub">Biologia 2n BATX · Bloc 3. Els esquemes de les diapositives, pas a pas.</p>
+  <div id="mods" role="tablist" aria-label="Temes"></div>
+  <div id="dots"></div>
+  <section class="card" aria-live="polite">
+    <h2 id="ttl"></h2><ul id="txt"></ul>
+    <div class="vars" id="vars"></div>
+    <div class="dg" id="dg"></div>
+    <div class="tip" id="tip"></div>
+    <div class="q"><p><strong>Tapa i respon:</strong> <span id="qq"></span></p>
+      <button class="btn" id="qb">Mostra la resposta</button><div class="ans" id="qa"></div></div>
+    <div class="row"><button class="btn" id="prev">← Anterior</button><button class="btn main" id="next">Següent →</button><button class="btn" id="rep">↻ Repeteix</button></div>
+  </section>
+</div>
+<script>
+var M=["Fotosíntesi","Cicles","Hormones"];
+var RM=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
+var KR={lab:["NADH","FADH₂","ATP","CO₂"],items:[
+ {n:"Citrat",s:"6C",x:"Acetil-CoA (2C) + oxalacetat (4C) → <b>citrat</b>. No surt res.",d:[0,0,0,0]},
+ {n:"Isocitrat",s:"6C",x:"Només es reordena. No surt res.",d:[0,0,0,0]},
+ {n:"α-cetoglutarat",s:"5C",x:"Perd 1 C: surten <b>NADH + CO₂</b>.",d:[1,0,0,1]},
+ {n:"Succinil-CoA",s:"4C",x:"Perd 1 C més: surten <b>NADH + CO₂</b>.",d:[1,0,0,1]},
+ {n:"Succinat",s:"4C",x:"Surt <b>1 ATP</b> (o GTP).",d:[0,0,1,0]},
+ {n:"Fumarat",s:"4C",x:"Surt <b>FADH₂</b>.",d:[0,1,0,0]},
+ {n:"Malat",s:"4C",x:"S’hi afegeix aigua. No surt res.",d:[0,0,0,0]},
+ {n:"Oxalacetat",s:"4C",x:"Surt <b>NADH</b> i el cicle torna a començar.",d:[1,0,0,0]}]};
+var UR={lab:["NH₄⁺ entra","CO₂ entra","Urea surt","Fumarat"],items:[
+ {n:"Carbamoil fosfat",s:"",x:"<b>NH₄⁺ + CO₂</b> → carbamoil fosfat (mitocondri del fetge).",d:[1,1,0,0]},
+ {n:"Citrulina",s:"",x:"Carbamoil fosfat + <b>ornitina</b> → citrulina.",d:[0,0,0,0]},
+ {n:"Argininosuccinat",s:"",x:"Citrulina + <b>aspartat</b> → argininosuccinat (citoplasma).",d:[0,0,0,0]},
+ {n:"Arginina",s:"",x:"Argininosuccinat → <b>arginina + fumarat</b>.",d:[0,0,0,1]},
+ {n:"Ornitina + urea",s:"",x:"Arginina → <b>ornitina</b> (torna a començar) + <b>UREA</b> → ronyó → orina.",d:[0,0,1,0]}]};
+var CA={lab:["CO₂ fixat","ATP gastat","NADPH gastat","G3P net"],items:[
+ {n:"1. Fixació",s:"RuBisCO",x:"<b>3 CO₂ + 3 RuBP (5C) → 6 3-PGA (3C)</b>. El CO₂ passa a ser orgànic.",d:[3,0,0,0]},
+ {n:"2. Reducció",s:"ATP + NADPH",x:"<b>6 ATP + 6 NADPH</b>: 6 3-PGA → 6 G3P. <b>1 G3P surt</b> del cicle; 5 es queden.",d:[0,6,6,1]},
+ {n:"3. Regeneració",s:"ATP",x:"<b>3 ATP</b>: 5 G3P → 3 RuBP (5C), llestos per captar més CO₂.",d:[0,3,0,0]}]};
+var S=[
+{m:0,k:"loc",t:"De la fulla al tilacoide",p:["La fotosíntesi passa a la <b>fulla</b>, dins dels <b>cloroplasts</b> i, dins d’aquests, als <b>tilacoides</b> i a l’<b>estroma</b>.","Fes clic als botons per anar apropant el dibuix."],
+ tip:"🧠 <b>Tilacoide = fase lluminosa. Estroma = cicle de Calvin.</b>",
+ q:"On passa la fase lluminosa? I el cicle de Calvin?",a:"Fase lluminosa: membrana dels tilacoides. Calvin: estroma."},
+{m:0,k:"z",t:"La fase lluminosa: l’esquema en Z",p:["La llum <b>puja</b> l’electró dues vegades (PSII i PSI). Entre mig <b>baixa</b> per la cadena i bomba H⁺ al lumen.","<b>Acíclic:</b> H₂O → … → NADPH (ATP + NADPH + O₂). <b>Cíclic:</b> només PSI, només ATP."],
+ tip:"🧠 <b>“Pere Pensa Com Poder Passar”</b> = PSII → Pq → Citocrom → Pc → PSI.",
+ q:"Quin flux no fa NADPH ni O₂?",a:"El flux cíclic (només PSI)."},
+{m:0,k:"ring",cfg:CA,t:"El cicle de Calvin",p:["Cada <b>etapa</b> té nombres que has de saber. Prem “Següent etapa” i mira com pugen els comptadors.","Després de <b>3 etapes</b> (una volta completa): <b>3 CO₂ · 9 ATP · 6 NADPH → 1 G3P net</b>."],
+ tip:"🧠 <b>“3 – 9 – 6”</b>. Fes dues voltes: 2 G3P = 1 glucosa (18 ATP, 12 NADPH).",
+ q:"Quants ATP i NADPH calen per 1 G3P net?",a:"9 ATP i 6 NADPH (3 CO₂)."},
+{m:1,k:"ring",cfg:KR,t:"El cicle de Krebs, molècula a molècula",p:["Segueix l’acetil-CoA pel cicle: les molècules passen de <b>6C a 4C</b> i van sortint coenzims.","Al final: <b>3 NADH · 1 FADH₂ · 1 ATP · 2 CO₂</b> per volta."],
+ tip:"🧠 <b>Cada Iaia Aprèn Sempre Sumant Fets Molt Ordenats</b> (Citrat … Oxalacetat).",
+ q:"En quins passos surt el CO₂?",a:"Als dos primers “deshidrogenasa”: isocitrat → α-cetoglutarat i α-cetoglutarat → succinil-CoA."},
+{m:1,k:"ring",cfg:UR,t:"El cicle de la urea",p:["El fetge converteix l’<b>NH₄⁺ tòxic</b> en <b>urea</b>, que els ronyons eliminen amb l’orina.","L’<b>ornitina</b> es regenera; el <b>fumarat</b> connecta amb Krebs."],
+ tip:"🧠 Tòxic (NH₄⁺) → urea → ronyó → orina.",
+ q:"Què és tòxic i en què es transforma?",a:"L’amoni (NH₄⁺), en urea (al fetge)."},
+{m:2,k:"flow",t:"Glucosa i hormones",p:["La glucosa es regula per <b>retroalimentació negativa</b>: l’efecte frena la causa.","Tria la situació i mira quina hormona entra en joc."],
+ tip:"🧠 <b>Insulina</b> = baixa la glucosa (la guarda). <b>Glucagó</b> = la puja (l’allibera).",
+ v:[{l:"Glucosa alta",f:["Glucosa alta|després de menjar|n",">el pàncrees allibera INSULINA","Insulina|hormona anabòlica|a",">fetge, múscul i adipòcits capten glucosa",["Glicogen|fetge i múscul|g","Greix|lipogènesi|g"],">la glucosa baixa","Glucosa normal|retroalimentació negativa|g"]},
+    {l:"Glucosa baixa",f:["Glucosa baixa|dejuni o exercici|n",">GLUCAGÓ, adrenalina, cortisol","Hormones catabòliques|trenquen reserves|a",">el fetge allibera glucosa",["Glicogen → glucosa|fetge|a","Gluconeogènesi|lactat, aminoàcids|a"],">la glucosa puja","Glucosa normal|retroalimentació negativa|g"]}],
+ q:"Quina hormona puja la glucosa? I quina la baixa?",a:"Glucagó (també cortisol i adrenalina) la puja; la insulina la baixa."}
+];
+var $=function(x){return document.getElementById(x)},i=0,vi=0,R={n:0,t:[0,0,0,0]},ZV=0;
+function nd(s,k){var a=s.split("|");return'<div class="node k-'+(a[2]||"g")+'" style="animation-delay:'+(k*.22)+'s"><b>'+a[0]+"</b>"+(a[1]?"<small>"+a[1]+"</small>":"")+"</div>"}
+function flow(f){var h="",k=0;f.forEach(function(x){
+  if(Array.isArray(x))h+='<div class="r">'+x.map(function(y){return nd(y,k)}).join("")+"</div>";
+  else if(x.charAt(0)==">")h+='<div class="ar" style="animation-delay:'+(k*.22)+'s"><i></i><span>'+x.slice(1)+"</span></div>";
+  else h+='<div class="r">'+nd(x,k)+"</div>";k++});return h}
+/* fulla -> cloroplast -> tilacoide */
+var LOC=[{l:"Fulla",x:"<b>Mesòfil:</b> capa central on passa el procés. <b>Estomes:</b> entra CO₂ i surt O₂ (les cèl·lules de guarda els obren i tanquen)."},
+ {l:"Cloroplast",x:"<b>Membrana</b> (protecció) · <b>tilacoides</b> (clorofil·la i cadena d’e⁻) · <b>estroma</b> (aquí passa el cicle de Calvin)."},
+ {l:"Tilacoide",x:"<b>Grànum</b> = pila de tilacoides. A la <b>membrana</b> hi ha la clorofil·la, els fotosistemes i l’ATP sintasa. Dins, el <b>lumen</b> (pH baix)."}];
+function loc(){var o=vi==0?"hl":"",c=vi==1?"hl":"",g=vi==2?"hl":"",s="";
+ [[190,125],[300,100],[410,135]].forEach(function(p){for(var k=0;k<4;k++)s+='<rect class="'+g+'" x="'+(p[0]-28)+'" y="'+(p[1]+k*11)+'" width="56" height="8" rx="4" fill="var(--chl)" stroke="var(--mem)"/>'});
+ return'<svg viewBox="0 0 600 300" role="img" aria-label="Fulla, cloroplast i tilacoides"><rect class="'+o+'" x="8" y="8" width="584" height="284" rx="22" fill="var(--leaf)" stroke="var(--mem)"/>'+
+ '<ellipse cx="300" cy="150" rx="215" ry="108" fill="var(--chl)" fill-opacity=".35" stroke="var(--mem)" stroke-width="2" class="'+c+'"/>'+s+
+ '<text x="26" y="34" class="t">Fulla (mesòfil)</text><ellipse cx="300" cy="289" rx="36" ry="8" fill="var(--bg)" stroke="var(--mem)"/><text x="300" y="276" text-anchor="middle" class="ts">estoma</text>'+
+ '<text x="300" y="242" text-anchor="middle" class="t">Estroma (Calvin)</text><text x="300" y="82" text-anchor="middle" class="t">Grànum (tilacoides)</text><text x="500" y="70" class="ts">Cloroplast</text></svg>'+
+ '<div class="info">'+LOC[vi].x+"</div>"}
+/* esquema en Z */
+function z(){var ac=ZV==0,P=ac?"M60 250L170 215L170 70L260 100L340 135L420 160L500 150L500 40L585 75":"M500 150L500 40L420 80L350 125L420 150L500 150";
+ var m=RM?"":'<circle r="7" fill="var(--e)" stroke="#7a5c00"><animateMotion dur="'+(ac?8:5)+'s" repeatCount="indefinite" path="'+P+'"/></circle>';
+ return'<svg viewBox="0 0 640 300" role="img" aria-label="Esquema en Z de la fase lluminosa"><path d="'+P+'" fill="none" stroke="var(--co2)" stroke-width="2" stroke-dasharray="5 4"/>'+
+ '<text x="8" y="14" class="ts">↑ energia de l’electró</text>'+
+ (ac?'<text x="20" y="278" class="t">H₂O → ½ O₂ + 2 H⁺</text><rect x="148" y="60" width="44" height="170" rx="8" fill="none" stroke="var(--mem)"/><text x="170" y="252" text-anchor="middle" class="t">PSII</text><text x="170" y="48" text-anchor="middle" class="ts">☀ llum</text>'+
+ '<text x="255" y="92" class="ts">Pq</text><text x="330" y="125" class="ts">Citocrom</text><text x="410" y="152" class="ts">Pc</text><text x="590" y="62" class="t">NADPH</text>':'')+
+ '<rect x="478" y="30" width="44" height="130" rx="8" fill="none" stroke="var(--mem)"/><text x="500" y="182" text-anchor="middle" class="t">PSI</text><text x="500" y="22" text-anchor="middle" class="ts">☀ llum</text>'+
+ '<text x="300" y="215" class="ts">cadena: bomba H⁺ cap al lumen → ATP sintasa → ATP</text>'+m+'</svg>'+
+ '<div class="info">'+(ac?"<b>Acíclic:</b> l’e⁻ ve de l’aigua, puja a PSII, baixa per la cadena (es fa ATP), puja a PSI i acaba al <b>NADP⁺ → NADPH</b>. Surt <b>O₂</b>.":"<b>Cíclic:</b> l’e⁻ de PSI baixa per la cadena i <b>torna a PSI</b>. Només es fa <b>ATP</b>: no hi ha NADPH, ni aigua trencada, ni O₂.")+"</div>"}
+/* cicles */
+function ring(){var c=S[i].cfg,n=c.items.length,cx=220,cy=150,Rr=100,ps=c.items.map(function(it,k){var a=-Math.PI/2+k*2*Math.PI/n;return[cx+Rr*Math.cos(a),cy+Rr*Math.sin(a),Math.cos(a)]}),
+ k0=R.n%n,sv="";
+ ps.forEach(function(p,k){var on=k==k0,lx=p[0]+(p[2]>.3?16:p[2]<-.3?-16:0),an=p[2]>.3?"start":p[2]<-.3?"end":"middle",ly=p[1]+(Math.abs(p[2])<=.3?(p[1]<cy?-16:24):4);
+  sv+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="'+(on?13:9)+'" fill="'+(on?"var(--atp)":"var(--card)")+'" stroke="var(--mem)" stroke-width="2"/><text x="'+lx+'" y="'+ly+'" text-anchor="'+an+'" class="t" style="'+(on?"font-weight:700":"")+'">'+c.items[k].n+(c.items[k].s&&c.items[k].s.indexOf("C")>-1&&c.items[k].s.length<4?" ("+c.items[k].s+")":"")+"</text>"});
+ var p0=ps[k0];
+ return'<svg viewBox="0 0 440 310" role="img" aria-label="Cicle"><circle cx="'+cx+'" cy="'+cy+'" r="'+Rr+'" fill="none" stroke="var(--line)" stroke-width="3" stroke-dasharray="6 5"/>'+sv+
+ '<g class="mv" style="transform:translate('+p0[0]+"px,"+p0[1]+'px)"><circle r="5" fill="var(--e)" stroke="#7a5c00"/></g></svg>'+
+ '<div class="info" id="ri"></div><div class="cnt" id="rc"></div>'+
+ '<div class="row"><button class="btn main" id="rn">Següent etapa →</button><button class="btn" id="rr">Reinicia</button></div>'}
+function rdraw(){var c=S[i].cfg,n=c.items.length;$("dg").innerHTML=ring();var k=R.n%n,it=c.items[k];
+ $("ri").innerHTML="<b>"+it.n+(it.s?" ("+it.s+")":"")+":</b> "+it.x;
+ $("rc").innerHTML=c.lab.map(function(l,j){return"<div><b>"+R.t[j]+"</b>"+l+"</div>"}).join("");
+ $("rn").onclick=function(){var d=c.items[R.n%n].d;R.t=R.t.map(function(v,j){return v+d[j]});R.n++;rdraw()};
+ $("rr").onclick=function(){R={n:0,t:[0,0,0,0]};rdraw()}}
+function render(){
+  var s=S[i];[].forEach.call($("mods").children,function(b,j){b.setAttribute("aria-selected",j==s.m)});
+  var first=S.findIndex(function(x){return x.m==s.m}),idx=[];S.forEach(function(x,j){if(x.m==s.m)idx.push(j)});
+  $("dots").innerHTML=idx.map(function(j){return'<button class="'+(j==i?"on":"")+'" aria-label="Pas '+(j-first+1)+'" data-j="'+j+'"></button>'}).join("");
+  [].forEach.call($("dots").children,function(b){b.onclick=function(){i=+b.dataset.j;vi=0;R={n:0,t:[0,0,0,0]};render()}});
+  $("ttl").textContent=s.t;$("txt").innerHTML=s.p.map(function(x){return"<li>"+x+"</li>"}).join("");$("tip").innerHTML=s.tip;
+  $("qq").textContent=s.q;$("qa").textContent=s.a;$("qa").className="ans";$("qb").textContent="Mostra la resposta";
+  var vs=$("vars");vs.innerHTML="";
+  function vb(arr){arr.forEach(function(l,j){var b=document.createElement("button");b.className="btn"+(j==vi?" main":"");b.textContent=l;b.onclick=function(){vi=j;render()};vs.appendChild(b)})}
+  if(s.k=="loc"){vb(LOC.map(function(x){return x.l}));$("dg").innerHTML=loc()}
+  else if(s.k=="z"){vi=Math.min(vi,1);ZV=vi;vb(["Flux acíclic","Flux cíclic"]);$("dg").innerHTML=z()}
+  else if(s.k=="ring")rdraw();
+  else{vb(s.v.map(function(v){return v.l}));$("dg").innerHTML=flow(s.v[vi].f)}
+  $("prev").disabled=i==0;$("next").disabled=i==S.length-1}
+M.forEach(function(n,j){var b=document.createElement("button");b.textContent=n;b.setAttribute("role","tab");b.onclick=function(){i=S.findIndex(function(x){return x.m==j});vi=0;R={n:0,t:[0,0,0,0]};render()};$("mods").appendChild(b)});
+function go(d){i+=d;vi=0;R={n:0,t:[0,0,0,0]};render()}
+$("prev").onclick=function(){go(-1)};$("next").onclick=function(){go(1)};$("rep").onclick=function(){R={n:0,t:[0,0,0,0]};render()};
+$("qb").onclick=function(){var a=$("qa");a.classList.toggle("on");this.textContent=a.classList.contains("on")?"Amaga la resposta":"Mostra la resposta"};
+document.addEventListener("keydown",function(e){if(e.key=="ArrowRight"&&i<S.length-1)go(1);if(e.key=="ArrowLeft"&&i>0)go(-1)});
+render();
+</script>
+</body>
+</html>

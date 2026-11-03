@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Els altres esquemes del tema, explicats</title>
+<style>
+:root{
+  --bg:#F2F6F7;--ink:#13262E;--mute:#52656D;--card:#FFFFFF;--line:#C9D6DA;--mem:#7B3F63;
+  --atp:#E39A0B;--nadh:#2379B5;--fadh:#6B47B3;--co2:#68767E;--btn:#13262E;--btnt:#F2F6F7;--ok:#2E8B57;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0F1A1F;--ink:#E7EFF1;--mute:#9DB0B7;--card:#172830;--line:#2B4048;--mem:#D58AB4;
+  --atp:#F2B431;--nadh:#5BB0E8;--fadh:#A58BE8;--co2:#9AA8AF;--btn:#E7EFF1;--btnt:#0F1A1F;--ok:#5CC88A}}
+:root[data-theme="dark"]{
+  --bg:#0F1A1F;--ink:#E7EFF1;--mute:#9DB0B7;--card:#172830;--line:#2B4048;--mem:#D58AB4;
+  --atp:#F2B431;--nadh:#5BB0E8;--fadh:#A58BE8;--co2:#9AA8AF;--btn:#E7EFF1;--btnt:#0F1A1F;--ok:#5CC88A}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Avenir Next","Segoe UI",system-ui,sans-serif}
+.wrap{max-width:780px;margin:0 auto;padding:18px 16px 32px}
+h1{font-size:1.45rem;margin:0 0 2px;letter-spacing:-.01em}.sub{margin:0 0 14px;color:var(--mute)}
+#mods{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px}
+#mods button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 14px;font:inherit;font-size:.9rem;cursor:pointer}
+#mods button[aria-selected="true"]{background:var(--btn);color:var(--btnt);border-color:var(--btn)}
+#dots{display:flex;gap:6px;margin:4px 0 12px}
+#dots button{width:30px;height:8px;border-radius:5px;border:0;background:var(--line);cursor:pointer;padding:0}
+#dots button.on{background:var(--atp)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h2{margin:0 0 8px;font-size:1.25rem}.card ul{margin:0 0 12px;padding-left:20px}.card li{margin-bottom:6px}
+.vars{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.dg{background:var(--bg);border-radius:12px;padding:10px 8px;margin:0 0 12px;overflow-x:auto}
+svg{display:block;width:100%;height:auto;min-width:460px}
+.info{margin:8px 4px 0;font-size:.95rem;min-height:3em}
+.node{border:2px solid var(--line);border-radius:10px;padding:7px 12px;background:var(--card);text-align:center;min-width:128px;animation:in .5s both}
+.node b{display:block}.node small{color:var(--mute);display:block;line-height:1.25}
+.k-a{border-color:var(--atp)}.k-n{border-color:var(--nadh)}.k-f{border-color:var(--fadh)}.k-g{border-color:var(--co2)}.k-m{border-color:var(--mem)}
+.r{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.ar{display:flex;align-items:center;gap:8px;justify-content:center;min-height:36px;color:var(--mute);font-size:.86rem;animation:in .5s both;text-align:center}
+.ar i{position:relative;width:2px;height:28px;background:var(--line);flex:none}
+.ar i::after{content:"";position:absolute;left:-3px;top:0;width:8px;height:8px;border-radius:50%;background:var(--atp);animation:dn 1.4s linear infinite}
+@keyframes dn{to{top:20px}}@keyframes in{from{opacity:0;transform:translateY(6px)}}
+@keyframes rise{from{transform:translateY(0);opacity:.9}to{transform:translateY(-70px);opacity:0}}
+.bub{animation:rise 2.2s linear infinite}
+@media (prefers-reduced-motion:reduce){.node,.ar,.bub{animation:none}.ar i::after{animation:none;top:10px}}
+.tip{background:var(--bg);border-radius:10px;padding:9px 12px;margin:0 0 12px;font-size:.93rem}
+.q{border-top:1px dashed var(--line);padding-top:10px}.q p{margin:0 0 8px}
+.ans{display:none;margin-top:8px;font-weight:600}.ans.on{display:block}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.btn{border:1.5px solid var(--btn);background:transparent;color:var(--btn);border-radius:10px;padding:9px 15px;font:inherit;cursor:pointer}
+.btn.main{background:var(--btn);color:var(--btnt)}.btn:disabled{opacity:.35;cursor:default}
+button:focus-visible,input:focus-visible,g:focus-visible{outline:3px solid var(--atp);outline-offset:2px}
+.t{font:13px "Avenir Next","Segoe UI",system-ui,sans-serif;fill:var(--ink)}.ts{font-size:11.5px;fill:var(--mute)}
+.org{cursor:pointer}.org rect{fill:var(--card);stroke:var(--mem);stroke-width:2}.org.on rect{fill:var(--atp);fill-opacity:.35;stroke:var(--atp);stroke-width:4}
+.lk{stroke:var(--line);stroke-width:2;fill:none}.lk.on{stroke:var(--atp);stroke-width:4}
+.blk{border:2px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--card);color:var(--ink);font:inherit;cursor:pointer;text-align:center;min-width:92px}
+.blk.on{background:var(--atp);color:#13262E;border-color:var(--atp)}
+.bl{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:6px 0}
+input[type=range]{width:100%}.big{font-size:1.2rem;font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Els altres esquemes del tema, explicats</h1>
+  <p class="sub">Biologia 2n BATX · Bloc 3. Digestió, gluconeogènesi, dejuni, estructures i gràfics.</p>
+  <div id="mods" role="tablist" aria-label="Temes"></div>
+  <div id="dots"></div>
+  <section class="card" aria-live="polite">
+    <h2 id="ttl"></h2><ul id="txt"></ul>
+    <div class="vars" id="vars"></div>
+    <div class="dg" id="dg"></div>
+    <div class="tip" id="tip"></div>
+    <div class="q"><p><strong>Tapa i respon:</strong> <span id="qq"></span></p>
+      <button class="btn" id="qb">Mostra la resposta</button><div class="ans" id="qa"></div></div>
+    <div class="row"><button class="btn" id="prev">← Anterior</button><button class="btn main" id="next">Següent →</button><button class="btn" id="rep">↻ Repeteix</button></div>
+  </section>
+</div>
+<script>
+var M=["Digestió i lipòlisi","Gluconeogènesi i dejuni","Estructures i alcohol","Factors fotosíntesi"];
+var RM=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
+/* node: "Títol|subtítol|color"; ">" fletxa; array = fila */
+var ST={
+ ATP:{l:"ATP",b:[["Adenina","n","Base nitrogenada."],["Ribosa","g","Sucre (pentosa)."],["3 fosfats","a","Enllaços fosfoanhídrid d’alta energia: cada hidròlisi allibera 7,3 kcal/mol."]],s:"Nucleòtid: <b>adenina + ribosa + 3 fosfats</b>."},
+ NAD:{l:"NAD⁺",b:[["Nicotinamida","n","Derivada de la vitamina B3. El seu N⁺ dona la càrrega positiva."],["Ribosa","g","Sucre."],["P – P","a","Els dos fosfats que uneixen els dos nucleòtids."],["Ribosa","g","Sucre."],["Adenina","n","Base nitrogenada."]],s:"<b>Dinucleòtid</b>: dos nucleòtids units per fosfats (un amb nicotinamida, l’altre amb adenina)."},
+ FAD:{l:"FAD",b:[["Riboflavina","f","Vitamina B2; és la part que agafa 2 e⁻ i 2 H⁺."],["P – P","a","Fosfats."],["Ribosa","g","Sucre."],["Adenina","n","Base nitrogenada."]],s:"<b>ADP + riboflavina</b>. Fortament unit a <b>flavoproteïnes</b> (grup prostètic)."},
+ CoA:{l:"Coenzim A",b:[["Vit. B5 + –SH","f","Àcid pantotènic. El grup –SH s’uneix a l’acetil (CH₃–CO–)."],["P – P","a","Fosfats."],["Ribosa-P","g","Sucre amb un fosfat extra."],["Adenina","n","Base nitrogenada."]],s:"Porta <b>grups acil</b> (acetil-CoA). Derivat de la vitamina <b>B5</b>."}};
+var OR={A:{n:"Teixit adipós",x:20,y:130,t:"Fa <b>lipòlisi</b>: allibera <b>glicerol i àcids grassos</b> cap al fetge i el múscul."},
+ F:{n:"Fetge",x:205,y:130,t:"Fa <b>cetogènesi</b> i <b>gluconeogènesi</b> (glicerol, lactat, aminoàcids). Exporta <b>glucosa i cetones</b> i fa <b>urea</b>."},
+ C:{n:"Cervell",x:390,y:30,t:"Fa servir <b>glucosa i cossos cetònics</b> (en dejuni llarg, fins al ~75 % de les seves necessitats)."},
+ M:{n:"Múscul",x:205,y:270,t:"Fa <b>β-oxidació</b> dels àcids grassos (acetil-CoA → Krebs → ATP) i dona <b>aminoàcids</b> al fetge."},
+ G:{n:"Glòbul vermell",x:390,y:130,t:"No té mitocondris: només <b>glicòlisi</b>. Fa <b>lactat</b> que va al fetge (cicle de Cori)."},
+ R:{n:"Ronyó",x:390,y:270,t:"Elimina la <b>urea</b> amb l’orina."}};
+var LK=[["A","F","àcids grassos + glicerol"],["A","M","àcids grassos"],["F","C","glucosa + cetones"],["F","G","glucosa"],["M","F","aminoàcids"],["G","F","lactat"],["F","R","urea"]];
+var S=[
+{m:0,k:"flow",t:"Digestió dels glúcids",p:["Els hidrats de carboni complexos es trenquen en <b>monosacàrids solubles</b> que passen a la sang.","Recorda l’ordre: <b>Boca → Estómac → Intestí → Absorció → Fetge</b>."],tip:"🧠 <b>“Bé, Em Ve Aviat el Fetge”</b> (B-E-I-A-F).",
+ f:["Midó|menjar|g",">boca: amilasa salival inicia la degradació","Oligosacàrids|boca|g",">estómac: l’enzim s’inactiva temporalment","Intestí prim|amilasa pancreàtica continua|c",">disacàrids → monosacàrids (sacarasa, lactasa)","Monosacàrids|glucosa, fructosa, galactosa|a",">absorció intestinal → sang","Fetge|glucosa → glicogen o a la sang|m"],
+ q:"Quin enzim comença la digestió del midó i on?",a:"L’amilasa salival, a la boca."},
+{m:0,k:"flow",t:"Digestió de les proteïnes",p:["L’<b>estómac</b> les desnaturalitza i el <b>pàncrees</b> acaba la feina.","Les hormones <b>secretina i CCK</b> regulen el procés."],tip:"🧠 Pepsina a l’estómac; tripsina, quimotripsina i elastasa a l’intestí.",
+ f:["Proteïna|menjar|g",">estómac: HCl (desnaturalitza) + pepsina","Polipèptids|g",">duodè: el bicarbonat neutralitza l’àcid","Intestí prim|tripsina, quimotripsina, elastasa|c",">digestió final","Aminoàcids lliures|a",">absorció","Fetge i cèl·lules|proteïnes noves, energia o urea|m"],
+ q:"Quina funció té el bicarbonat del duodè?",a:"Neutralitza l’àcid de l’estómac perquè actuïn els enzims del pàncrees."},
+{m:0,k:"flow",t:"Control hormonal de la lipòlisi",p:["La <b>lipasa</b> del teixit adipós s’activa amb hormones que fan pujar l’<b>AMPc</b>.","La <b>insulina</b> fa el contrari: inhibeix la lipòlisi."],tip:"🧠 Els àcids grassos lliures viatgen a la sang units a l’<b>albúmina</b>.",
+ v:[{l:"Hormones que l’activen",f:["Adrenalina, noradrenalina, glucagó, ACTH|hormones|n",">s’uneixen a receptors de membrana","Adenilat ciclasa|c",">↑ AMPc","Proteïna cinasa A|c",">fosforila la lipasa","Lipasa activa|lipòlisi|a",">triglicèrid → glicerol + àcids grassos"]},
+    {l:"Insulina",f:["Insulina|hormona anabòlica|a",">inhibeix la lipòlisi","Lipasa inactiva|g",">els greixos es queden guardats","Triglicèrids al teixit adipós|reserva|c"]}],
+ q:"Quina hormona frena la lipòlisi?",a:"La insulina."},
+{m:1,k:"flow",t:"El mapa de la gluconeogènesi",p:["No és la glicòlisi al revés punt per punt: els passos <b>irreversibles</b> es salten amb <b>enzims propis</b> (⚠).","Part passa al <b>mitocondri</b> i part al <b>citoplasma</b>."],tip:"🧠 ⚠ = pas propi de la gluconeogènesi. La <b>glucosa-6-fosfatasa</b> només la tenen fetge i ronyó.",
+ v:[{l:"Des del lactat",f:["Lactat|del múscul (cicle de Cori)|g",">lactat deshidrogenasa","Piruvat|mitocondri|a",">⚠ piruvat carboxilasa (ATP + CO₂)","Oxalacetat|surt del mitocondri com a malat|c",">⚠ PEP carboxicinasa (GTP, −CO₂)","Fosfoenolpiruvat (PEP)|citoplasma|a",">passos reversibles de la glicòlisi, al revés","Fructosa-1,6-bisfosfat|c",">⚠ fructosa-1,6-bisfosfatasa","Glucosa-6-fosfat|c",">⚠ glucosa-6-fosfatasa","Glucosa|a"]},
+    {l:"Des del glicerol",f:["Glicerol|de la lipòlisi|g",">glicerol cinasa (ATP)","Glicerol-3-fosfat|c",">NAD⁺ → NADH","DHAP|a",">triosa fosfat isomerasa","Gliceraldehid-3-fosfat|a",">cap amunt per la via","Fructosa-1,6-bisfosfat|c",">⚠ fructosa-1,6-bisfosfatasa → ⚠ glucosa-6-fosfatasa","Glucosa|a"]}],
+ q:"Per què calen enzims propis a la gluconeogènesi?",a:"Perquè alguns passos de la glicòlisi són irreversibles i s’han de rodejar."},
+{m:1,k:"map",t:"L’esquema del dejuni",p:["Amb <b>glucosa ↓, insulina ↓ i glucagó ↑</b>, els òrgans es reparteixen la feina.","Fes clic a un òrgan: s’il·luminen les fletxes que hi arriben o en surten."],tip:"🧠 <b>Fetge = central de distribució</b>: fa glucosa i cetones, i el cervell les aprofita.",
+ q:"Què fa el glòbul vermell i per què?",a:"Només glicòlisi (no té mitocondris); fa lactat que va al fetge."},
+{m:2,k:"blk",t:"Per dins: ATP, NAD⁺, FAD i CoA",p:["Tots tenen una part d’<b>adenina</b>. Fes clic a cada peça.","Els tres coenzims porten una <b>vitamina B</b>: NAD⁺ (B3), FAD (B2), CoA (B5)."],tip:"🧠 NAD – FAD – CoA = B3 – B2 – B5.",
+ q:"Què té de comú l’estructura d’aquests quatre?",a:"Tots tenen adenina (i ribosa i fosfats)."},
+{m:2,k:"flow",t:"Efectes de l’alcohol (curiositat)",p:["L’alcohol es transforma en <b>acetaldehid</b>, que és tòxic.","<b>No cal estudiar-ho</b>: és el dibuix de l’última diapositiva."],tip:"💡 És una curiositat per entendre per què l’alcohol fa mal, no matèria d’examen.",
+ f:["Alcohol|etanol|g",">el fetge el transforma","Acetaldehid|tòxic|n",">augmenta els radicals lliures (ROS)",["Dany a membranes|g","Dany a proteïnes|g","Dany a l’ADN|g"],["Menys funció mitocondrial|m","Altera el metabolisme dels àcids grassos|m"],">a llarg termini","Malaltia cardíaca i malnutrició|n"],
+ q:"Quina molècula tòxica forma l’alcohol?",a:"L’acetaldehid."},
+{m:3,k:"chart",t:"Gràfics i experiments de la fotosíntesi",p:["Es mesura comptant les <b>bombolles d’O₂ per minut</b> a una planta aquàtica (elodea).","Mou el control i mira com canvia cada factor."],tip:"🧠 <b>Una campana</b> (temperatura: enzims) i <b>dues plataformes</b> (llum i CO₂: saturació).",
+ q:"Per què la corba de la llum s’aplana? I la del CO₂?",a:"Saturació dels pigments (llum) i saturació dels enzims (CO₂)."}
+];
+var $=function(x){return document.getElementById(x)},i=0,vi=0,sel="F",bi=0,cv=25;
+function nd(s,k){var a=s.split("|");return'<div class="node k-'+(a[2]||"g")+'" style="animation-delay:'+(k*.22)+'s"><b>'+a[0]+"</b>"+(a[1]?"<small>"+a[1]+"</small>":"")+"</div>"}
+function flow(f){var h="",k=0;f.forEach(function(x){
+  if(Array.isArray(x))h+='<div class="r">'+x.map(function(y){return nd(y,k)}).join("")+"</div>";
+  else if(x.charAt(0)==">")h+='<div class="ar" style="animation-delay:'+(k*.22)+'s"><i></i><span>'+x.slice(1)+"</span></div>";
+  else h+='<div class="r">'+nd(x,k)+"</div>";k++});return h}
+function map(){var c=function(k){return[OR[k].x+55,OR[k].y+25]},s="";
+ LK.forEach(function(l,j){var a=c(l[0]),b=c(l[1]),on=l[0]==sel||l[1]==sel,off=(j==4||j==5)?6:0;
+  var dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L,nx=-uy*off,ny=ux*off,m=Math.min(55/Math.abs(ux||.001),25/Math.abs(uy||.001));
+  var x1=a[0]+ux*m+nx,y1=a[1]+uy*m+ny,x2=b[0]-ux*m+nx,y2=b[1]-uy*m+ny;
+  s+='<line class="lk'+(on?" on":"")+'" x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" marker-end="url(#ar'+(on?1:0)+')"/>'+(on?'<text class="ts" text-anchor="middle" x="'+((x1+x2)/2)+'" y="'+((y1+y2)/2-5)+'">'+l[2]+"</text>":"")});
+ Object.keys(OR).forEach(function(k){var o=OR[k];s+='<g class="org'+(k==sel?" on":"")+'" data-k="'+k+'" tabindex="0" role="button" aria-label="'+o.n+'"><rect x="'+o.x+'" y="'+o.y+'" width="110" height="50" rx="12"/><text class="t" x="'+(o.x+55)+'" y="'+(o.y+30)+'" text-anchor="middle">'+o.n+"</text></g>"});
+ return'<svg viewBox="0 0 520 340" role="img" aria-label="Òrgans durant el dejuni"><defs><marker id="ar0" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="var(--line)"/></marker><marker id="ar1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="var(--atp)"/></marker></defs>'+
+ '<text x="8" y="14" class="ts">Sang: glucosa ↓ · insulina ↓ · glucagó ↑</text>'+s+'</svg><div class="info"><b>'+OR[sel].n+":</b> "+OR[sel].t+"</div>"}
+function bind(){[].forEach.call(document.querySelectorAll(".org"),function(g){var f=function(){sel=g.dataset.k;$("dg").innerHTML=map();bind()};g.onclick=f;g.onkeydown=function(e){if(e.key=="Enter"||e.key==" "){e.preventDefault();f()}}})}
+function blk(){var d=ST[Object.keys(ST)[vi]],h='<div class="bl">';
+ d.b.forEach(function(b,j){h+='<button class="blk'+(j==bi?" on":"")+'" data-j="'+j+'" style="border-color:var(--'+(b[1]=="g"?"co2":b[1]=="a"?"atp":b[1]=="n"?"nadh":"fadh")+')">'+b[0]+"</button>"});
+ return h+'</div><div class="info">'+d.s+"<br><b>"+d.b[bi][0]+":</b> "+d.b[bi][2]+"</div>"}
+var TD=[3,6,9,11,12,13,9,6,3,0];
+function chart(){var k=vi,h="",v,fr,lab,sat="";
+ if(k==3){var C=[["Violeta",1,"Surt O₂: el violeta/blau s’absorbeix."],["Verd",0,"No surt O₂: el verd es reflecteix."],["Vermell",1,"Surt O₂: el vermell s’absorbeix."]];
+  h='<div class="bl">'+C.map(function(c,j){return'<button class="blk'+(j==bi?" on":"")+'" data-j="'+j+'">Llum '+c[0].toLowerCase()+"</button>"}).join("")+"</div>";
+  var y=C[bi][1];return h+'<svg viewBox="0 0 440 150" role="img" aria-label="Tub amb elodea"><rect x="190" y="20" width="60" height="120" rx="10" fill="none" stroke="var(--line)" stroke-width="3"/><rect x="205" y="90" width="30" height="45" fill="#3E9B50"/>'+
+   (y?[0,1,2,3,4].map(function(j){return'<circle class="bub" cx="'+(208+j*6)+'" cy="85" r="3.5" fill="var(--nadh)" style="animation-delay:'+(j*.4)+'s"/>'}).join(""):"")+'<text x="270" y="80" class="t">'+(y?"Surt O₂ (bombolles)":"No surten bombolles")+"</text></svg><div class='info'>"+C[bi][2]+" Els pigments absorbeixen <b>blau/violeta i vermell</b>.</div>"}
+ if(k==0){v=TD[cv/5];fr=v/13;lab=v+" bombolles/min a "+cv+" °C";
+  var pts=TD.map(function(a,j){return(40+j*5/45*380)+","+(200-a/13*170)}).join(" ");
+  h='<label>Temperatura: <b>'+cv+' °C</b><input type="range" id="sl" min="0" max="45" step="5" value="'+cv+'"></label><svg viewBox="0 0 440 230" role="img" aria-label="Rendiment segons la temperatura"><path d="M40 20V200H430" fill="none" stroke="var(--mute)"/><polyline points="'+pts+'" fill="none" stroke="var(--atp)" stroke-width="3"/><circle cx="'+(40+cv/45*380)+'" cy="'+(200-fr*170)+'" r="7" fill="var(--nadh)"/><text x="46" y="16" class="ts">rendiment (bombolles/min)</text><text x="300" y="222" class="ts">temperatura →</text><text x="'+(40+25/45*380-30)+'" y="'+(200-170-6)+'" class="ts">òptim (25 °C)</text></svg>';
+  sat=cv>25?"Passat l’òptim els <b>enzims es desnaturalitzen</b>: el rendiment baixa.":"Fins a l’òptim, més temperatura = més activitat enzimàtica."}
+ else if(k==1||k==2){v=cv>100?100:cv;fr=1-Math.exp(-v/22);var nm=k==1?["Intensitat de llum","saturació dels pigments"]:["Concentració de CO₂","saturació dels enzims"];
+  var p2=[];for(var u=0;u<=100;u+=4)p2.push((40+u/100*380)+","+(200-(1-Math.exp(-u/22))*170));
+  lab=Math.round(fr*13)+" bombolles/min";
+  h='<label>'+nm[0]+': <b>'+v+' %</b><input type="range" id="sl" min="0" max="100" step="5" value="'+v+'"></label><svg viewBox="0 0 440 230" role="img" aria-label="Rendiment segons '+nm[0]+'"><path d="M40 20V200H430" fill="none" stroke="var(--mute)"/><line x1="40" y1="'+(200-.95*170)+'" x2="430" y2="'+(200-.95*170)+'" stroke="var(--mute)" stroke-dasharray="5 4"/><text x="260" y="'+(200-.95*170-6)+'" class="ts">'+nm[1]+'</text><polyline points="'+p2.join(" ")+'" fill="none" stroke="var(--atp)" stroke-width="3"/><circle cx="'+(40+v/100*380)+'" cy="'+(200-fr*170)+'" r="7" fill="var(--nadh)"/><text x="46" y="16" class="ts">rendiment</text><text x="300" y="222" class="ts">'+nm[0].toLowerCase()+' →</text></svg>';
+  sat=fr>.93?"Ja és a la <b>plataforma</b>: més "+(k==1?"llum":"CO₂")+" no serveix de res ("+nm[1]+").":"Encara hi ha pigments/enzims lliures: el rendiment puja."}
+ var nb=Math.round(fr*7);return h+'<svg viewBox="0 0 440 70" role="img" aria-label="Bombolles"><rect x="20" y="5" width="46" height="62" rx="8" fill="none" stroke="var(--line)" stroke-width="3"/>'+[0,1,2,3,4,5,6].slice(0,nb).map(function(j){return'<circle class="bub" cx="'+(30+(j%4)*8)+'" cy="55" r="3.5" fill="var(--nadh)" style="animation-delay:'+(j*.3)+'s"/>'}).join("")+'<text x="84" y="40" class="big" fill="var(--ink)" style="fill:var(--ink)">'+lab+"</text></svg><div class='info'>"+sat+"</div>"}
+function render(){
+  var s=S[i];[].forEach.call($("mods").children,function(b,j){b.setAttribute("aria-selected",j==s.m)});
+  var first=S.findIndex(function(x){return x.m==s.m}),idx=[];S.forEach(function(x,j){if(x.m==s.m)idx.push(j)});
+  $("dots").innerHTML=idx.map(function(j){return'<button class="'+(j==i?"on":"")+'" aria-label="Pas '+(j-first+1)+'" data-j="'+j+'"></button>'}).join("");
+  [].forEach.call($("dots").children,function(b){b.onclick=function(){i=+b.dataset.j;vi=0;bi=0;render()}});
+  $("ttl").textContent=s.t;$("txt").innerHTML=s.p.map(function(x){return"<li>"+x+"</li>"}).join("");$("tip").innerHTML=s.tip;
+  $("qq").textContent=s.q;$("qa").textContent=s.a;$("qa").className="ans";$("qb").textContent="Mostra la resposta";
+  var vs=$("vars");vs.innerHTML="";
+  function vb(a){a.forEach(function(l,j){var b=document.createElement("button");b.className="btn"+(j==vi?" main":"");b.textContent=l;b.onclick=function(){vi=j;bi=0;render()};vs.appendChild(b)})}
+  if(s.k=="flow"){if(s.v){vb(s.v.map(function(v){return v.l}));$("dg").innerHTML=flow(s.v[vi].f)}else $("dg").innerHTML=flow(s.f)}
+  else if(s.k=="map"){$("dg").innerHTML=map();bind()}
+  else if(s.k=="blk"){vb(Object.keys(ST).map(function(k){return ST[k].l}));$("dg").innerHTML=blk()}
+  else{vb(["Temperatura","Llum","CO₂","Color de la llum"]);$("dg").innerHTML=chart()}
+  [].forEach.call($("dg").querySelectorAll(".blk"),function(b){b.onclick=function(){bi=+b.dataset.j;$("dg").innerHTML=s.k=="blk"?blk():chart();render2()}});
+  var sl=$("sl");if(sl)sl.oninput=function(){cv=+this.value;$("dg").innerHTML=chart();render2()};
+  $("prev").disabled=i==0;$("next").disabled=i==S.length-1}
+function render2(){var s=S[i];[].forEach.call($("dg").querySelectorAll(".blk"),function(b){b.onclick=function(){bi=+b.dataset.j;$("dg").innerHTML=s.k=="blk"?blk():chart();render2()}});var sl=$("sl");if(sl)sl.oninput=function(){cv=+this.value;$("dg").innerHTML=chart();render2();$("sl").focus()}}
+M.forEach(function(n,j){var b=document.createElement("button");b.textContent=n;b.setAttribute("role","tab");b.onclick=function(){i=S.findIndex(function(x){return x.m==j});vi=0;bi=0;render()};$("mods").appendChild(b)});
+function go(d){i+=d;vi=0;bi=0;render()}
+$("prev").onclick=function(){go(-1)};$("next").onclick=function(){go(1)};$("rep").onclick=render;
+$("qb").onclick=function(){var a=$("qa");a.classList.toggle("on");this.textContent=a.classList.contains("on")?"Amaga la resposta":"Mostra la resposta"};
+document.addEventListener("keydown",function(e){if(e.target.tagName=="INPUT")return;if(e.key=="ArrowRight"&&i<S.length-1)go(1);if(e.key=="ArrowLeft"&&i>0)go(-1)});
+render();
+</script>
+</body>
+</html>
